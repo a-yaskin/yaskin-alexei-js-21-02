@@ -3,38 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <title>Интернет-магазин "Не только красивое"</title>
+    <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
     <header>
         <p>Интернет-магазин "Не только красивое"</p>
     </header>
-    <main>
-        <section>
-            <h1>Рыбы на любой вкус</h1>
-            <p>Мы продаём рыбов, а не только показываем!</p>
-            <article>
-                <a href="#">Замороженные рыбы</a>
-                <p>Мы заморозили рыбов для вас</p>
-            </article>
-        </section>
-        <section>
-            <h2>Популярные</h2>
-            <article>
-                <img src="" alt="Fish" width="60" height="50">
-                <a href="#">Палтус</a>
-                <button>Купить</button>
-            </article>
-        </section>
+    <main class="flex-container">
+        <div class="flex-item">
+            <section>
+                <h1>Рыбы на любой вкус</h1>
+                <p>Мы продаём рыбов, а не только показываем!</p>
+                <div class="type-row">
+                    <article class="type-item">
+                        <a href="#">Замороженные рыбы</a>
+                        <p>Мы заморозили рыбов для вас</p>
+                    </article>
+                    <article class="type-item">
+                        <a href="#">Живые рыбы</a>
+                        <p>На кухню или на разведение</p>
+                    </article>
+                </div>
+            </section>
+            <section>
+                <h2>Популярные</h2>
+                <div class="tiles">
+                    <div class="tile-row">
+                        <article class="tile">
+                            <img src="" alt="Fish" width="60" height="50">
+                            <a href="#">Палтус</a>
+                            <button>Купить</button>
+                        </article>
+                        <article class="tile">
+                            <img src="" alt="Fish" width="60" height="50">
+                            <a href="#">Сёмга</a>
+                            <button>Купить</button>
+                        </article>
+                        <article class="tile">
+                            <img src="" alt="Fish" width="60" height="50">
+                            <a href="#">Coм</a>
+                            <button>Купить</button>
+                        </article>
+                    </div>
+                    <div class="tile-row">
+                        <article class="tile">
+                            <img src="" alt="Fish" width="60" height="50">
+                            <a href="#">Мойва</a>
+                            <button>Купить</button>
+                        </article>
+                        <article class="tile">
+                            <img src="" alt="Fish" width="60" height="50">
+                            <a href="#">Сельдь</a>
+                            <button>Купить</button>
+                        </article>
+                        <article class="tile">
+                            <img src="" alt="Fish" width="60" height="50">
+                            <a href="#">Тунец</a>
+                            <button>Купить</button>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <aside class="flex-item">
+            <form>
+                <fieldset>
+                    <legend>Морская рыба</legend>
+                    <p>
+                        <input type="checkbox" id="fish1">
+                        <label for="fish1">Акула</label>
+                    </p>
+                </fieldset>
+            </form>
+        </aside>
     </main>
-    <aside>
-        <h3>Морская рыба</h3>
-        <label>
-            <input type="checkbox"> Акула
-        </label>
-    </aside>
-    <footer>
-        <p>Контакты</p>
-        <p>&copy; 2021 ИП Рыбов О.А.</p>
+    <footer class="footer">
+        <div class="footer-piece">Контакты</div>
+        <div class="footer-piece">&copy; 2021 ИП Рыбов О.А.</div>
     </footer>
 </body>
 </html>

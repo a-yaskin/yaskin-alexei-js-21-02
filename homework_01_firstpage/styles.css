@@ -1,0 +1,69 @@
+.type-row {                 /* Using Inline-block */
+    white-space: nowrap;    /* requires nowrap and size=0 to hide indents */
+    font-size: 0;
+}
+.type-item {
+    white-space: normal;
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    background: lightgray;
+    margin-right: 5%;
+    font-size: 16px;
+}
+.type-row .type-item:last-child {
+    margin-right: 0;
+}
+
+.tiles {                    /* Using Display table */
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+.tile-row {
+    display: table-row;
+}
+.tile {
+    display: table-cell;
+    width: 33%;
+    vertical-align: top;
+    padding: 0;
+    background: lightgray;
+    border-right: 30px solid white;
+    border-left: 30px solid white;
+}
+.tile-row .tile:first-child {
+    border-left: none;
+}
+.tile-row .tile:last-child {
+    border-right: none;
+}
+
+.flex-container {           /* Using Flexbox */
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+.flex-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    background: lightgray;
+}
+.flex-item + .flex-item {
+    margin-right: 5%;
+}
+
+.footer {                   /* Using Float */
+    overflow: hidden;       /* requires reset flow with overflow or clearfix */
+}
+.footer-piece {
+    width: 50%;
+    background: lightgray;
+    float: left;
+}
+.footer .footer-piece:last-child {
+    float: right;
+    text-align: right;
+}
