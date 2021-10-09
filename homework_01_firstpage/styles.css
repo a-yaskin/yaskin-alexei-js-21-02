@@ -5,19 +5,19 @@
 .type-item {
     white-space: normal;
     display: inline-block;
-    width: 50%;
+    width: 350px;
+    box-sizing: border-box;
     vertical-align: top;
-    background: lightgray;
-    margin-right: 5%;
+    background: Gainsboro;
+    padding: 12px 0;
+    margin-right: 12px;
+    margin-top: 32px;
     font-size: 16px;
-}
-.type-row .type-item:last-child {
-    margin-right: 0;
 }
 
 .tiles {                    /* Using Display table */
     display: table;
-    width: 100%;
+    width: 718px;
     border-collapse: collapse;
 }
 .tile-row {
@@ -25,18 +25,21 @@
 }
 .tile {
     display: table-cell;
-    width: 33%;
+    width: 204px;
     vertical-align: top;
-    padding: 0;
-    background: lightgray;
-    border-right: 30px solid white;
-    border-left: 30px solid white;
+    padding: 12px 12px 8px 12px;
+    background: Gainsboro;
+    border-right: 12px solid White;
+    border-top: 12px solid White;
 }
-.tile-row .tile:first-child {
-    border-left: none;
+.tile-buttons {
+    display: inline-block;
+    vertical-align: top;
+    width: 120px;
+    height: 60px;
 }
-.tile-row .tile:last-child {
-    border-right: none;
+button {
+    margin: 16px 12px 0 12px;
 }
 
 .flex-container {           /* Using Flexbox */
@@ -47,23 +50,89 @@
 .flex-item {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: none;
     height: 100%;
-    background: lightgray;
 }
 .flex-item + .flex-item {
-    margin-right: 5%;
+    margin-right: 12px;
+    margin-top: 12px;
+}
+.flex-container .flex-item:first-child {
+    flex: auto;
+    align-items: flex-start;
 }
 
-.footer {                   /* Using Float */
+footer {                    /* Using Float */
     overflow: hidden;       /* requires reset flow with overflow or clearfix */
+    width: 100%;
+    bottom: 0;
 }
 .footer-piece {
-    width: 50%;
-    background: lightgray;
     float: left;
+    width: 50%;
+    background: Gainsboro;
+    height: 48px;
+    line-height: 48px;
+    padding-left: 12px;
+    margin-right: -12px;
+    margin-top: 12px;
 }
-.footer .footer-piece:last-child {
+footer .footer-piece:last-child {
     float: right;
     text-align: right;
+    padding-left: 0;
+    margin-right: 0;
+    padding-right: 12px;
+    margin-left: -12px;
+}
+
+body, html {
+    font-family: "Open Sans", "Arial", sans-serif;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+header {
+    color: White;
+    font-size: 24px;
+    font-weight: bold;
+    background: DarkCyan;
+    padding: 12px 0;
+    width: 100%;
+}
+h1 {
+    padding-bottom: 0;
+    padding-left: 12px;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 32px;
+}
+h2 {
+    padding-top: 24px;
+    padding-bottom: 0;
+    padding-left: 12px;
+    font-weight: bold;
+    font-size: 24px;
+}
+form {
+    background-color: Gainsboro;
+    height: 600px;
+    width: 240px;
+    padding: 12px 0;
+}
+fieldset {
+    border: 0;
+}
+legend {
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+p {
+    padding: 0 12px;
+    margin: 0;
+}
+a {
+    color: RoyalBlue;
+    padding: 0 12px;
 }
