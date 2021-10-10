@@ -1,0 +1,138 @@
+.type-row {                 /* Using Inline-block */
+    white-space: nowrap;    /* requires nowrap and size=0 to hide indents */
+    font-size: 0;
+}
+.type-item {
+    white-space: normal;
+    display: inline-block;
+    width: 350px;
+    box-sizing: border-box;
+    vertical-align: top;
+    background: Gainsboro;
+    padding: 12px 0;
+    margin-right: 12px;
+    margin-top: 32px;
+    font-size: 16px;
+}
+
+.tiles {                    /* Using Display table */
+    display: table;
+    width: 718px;
+    border-collapse: collapse;
+}
+.tile-row {
+    display: table-row;
+}
+.tile {
+    display: table-cell;
+    width: 204px;
+    vertical-align: top;
+    padding: 12px 12px 8px 12px;
+    background: Gainsboro;
+    border-right: 12px solid White;
+    border-top: 12px solid White;
+}
+.tile-buttons {
+    display: inline-block;
+    vertical-align: top;
+    width: 120px;
+    height: 60px;
+}
+button {
+    margin: 16px 12px 0 12px;
+}
+
+.flex-container {           /* Using Flexbox */
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+.flex-item {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    height: 100%;
+}
+.flex-item + .flex-item {
+    margin-right: 12px;
+    margin-top: 12px;
+}
+.flex-container .flex-item:first-child {
+    flex: auto;
+    align-items: flex-start;
+}
+
+footer {                    /* Using Float */
+    overflow: hidden;       /* requires reset flow with overflow or clearfix */
+    width: 100%;
+    bottom: 0;
+}
+.footer-piece {
+    float: left;
+    width: 50%;
+    background: Gainsboro;
+    height: 48px;
+    line-height: 48px;
+    padding-left: 12px;
+    margin-right: -12px;
+    margin-top: 12px;
+}
+footer .footer-piece:last-child {
+    float: right;
+    text-align: right;
+    padding-left: 0;
+    margin-right: 0;
+    padding-right: 12px;
+    margin-left: -12px;
+}
+
+body, html {
+    font-family: "Open Sans", "Arial", sans-serif;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+header {
+    color: White;
+    font-size: 24px;
+    font-weight: bold;
+    background: DarkCyan;
+    padding: 12px 0;
+    width: 100%;
+}
+h1 {
+    padding-bottom: 0;
+    padding-left: 12px;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 32px;
+}
+h2 {
+    padding-top: 24px;
+    padding-bottom: 0;
+    padding-left: 12px;
+    font-weight: bold;
+    font-size: 24px;
+}
+form {
+    background-color: Gainsboro;
+    height: 600px;
+    width: 240px;
+    padding: 12px 0;
+}
+fieldset {
+    border: 0;
+}
+legend {
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+p {
+    padding: 0 12px;
+    margin: 0;
+}
+a {
+    color: RoyalBlue;
+    padding: 0 12px;
+}
