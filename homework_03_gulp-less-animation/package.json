@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "gulp": "echo \"Testing gulp script\" && exit 0"
+    "dev": "gulp",
+    "serve": "gulp serve",
+    "less": "gulp less:watch",
+    "html": "gulp html:watch"
   },
   "repository": {
     "type": "git",
@@ -18,6 +21,7 @@
   },
   "homepage": "https://github.com/a-yaskin/yaskin-alexei-js-21-02#readme",
   "devDependencies": {
+    "browser-sync": "^2.27.5",
     "gulp": "^4.0.2",
     "gulp-less": "^5.0.0",
     "less": "^4.1.2"

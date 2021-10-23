@@ -2,9 +2,145 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-магазин "Не только красивое"</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+    <link rel="stylesheet" href="styles.css">
+    <script async src="script.js"></script>
 </head>
 <body>
-
+<div class="page-layout page-layout_theme_light">
+    <header class="page-layout__header page-layout__header_theme_light">
+        <h1>Интернет-магазин "Не только красивое"</h1>
+        <nav class="page-layout__navigation">
+            <ul class="page-layout__nav-items">
+                <li class="page-layout__nav-item">
+                    <input class="page-layout__filter-switch" type="checkbox" checked id="filter-switch">
+                    <label class="page-layout__filter-switch" for="filter-switch">Фильтр рыбов</label>
+                </li>
+                <li class="page-layout__nav-item">
+                    <input class="page-layout__theme-switch" type="checkbox" id="theme-switch">
+                    <label for="theme-switch">Только темное</label>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="page-layout__main page-layout__main_theme_light">
+        <section class="categories">
+            <h2 class="categories__title">Рыбы на любой вкус</h2>
+            <p class="categories__tagline">Мы продаём рыбов, а не только показываем!</p>
+            <div class="categories__items">
+                <article class="categories__item categories__item_theme_light ">
+                    <a class="a_theme_light" href="#">Замороженные рыбы</a>
+                    <p>Мы заморозили рыбов для вас</p>
+                </article>
+                <article class="categories__item categories__item_theme_light">
+                    <a class="a_theme_light" href="#">Живые рыбы</a>
+                    <p>На кухню или на разведение</p>
+                </article>
+            </div>
+        </section>
+        <section class="products">
+            <h3 class="products__title">Популярные</h3>
+            <div class="products__tiles">
+                <article class="product-tile product-tile_theme_light">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkmAcAAKQAoJgx3+MAAAAASUVORK5CYII="
+                         alt="Fish" width="60" height="60">
+                    <div class="product-tile__buttons">
+                        <a class="a_theme_light" href="#">Палтус</a>
+                        <button class="product-tile__button product-tile__button_theme_light">Купить</button>
+                    </div>
+                </article>
+                <article class="product-tile product-tile_theme_light">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkmAcAAKQAoJgx3+MAAAAASUVORK5CYII="
+                         alt="Fish" width="60" height="60">
+                    <div class="product-tile__buttons">
+                        <a class="a_theme_light" href="#">Сёмга</a>
+                        <button class="product-tile__button product-tile__button_theme_light">Купить</button>
+                    </div>
+                </article>
+                <article class="product-tile product-tile_theme_light">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkmAcAAKQAoJgx3+MAAAAASUVORK5CYII="
+                         alt="Fish" width="60" height="60">
+                    <div class="product-tile__buttons">
+                        <a class="a_theme_light" href="#">Coм</a>
+                        <button class="product-tile__button product-tile__button_theme_light">Купить</button>
+                    </div>
+                </article>
+                <article class="product-tile product-tile_theme_light">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkmAcAAKQAoJgx3+MAAAAASUVORK5CYII="
+                         alt="Fish" width="60" height="60">
+                    <div class="product-tile__buttons">
+                        <a class="a_theme_light" href="#">Мойва</a>
+                        <button class="product-tile__button product-tile__button_theme_light">Купить</button>
+                    </div>
+                </article>
+                <article class="product-tile product-tile_theme_light">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkmAcAAKQAoJgx3+MAAAAASUVORK5CYII="
+                         alt="Fish" width="60" height="60">
+                    <div class="product-tile__buttons">
+                        <a class="a_theme_light" href="#">Сельдь</a>
+                        <button class="product-tile__button product-tile__button_theme_light">Купить</button>
+                    </div>
+                </article>
+                <article class="product-tile product-tile_theme_light">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkmAcAAKQAoJgx3+MAAAAASUVORK5CYII="
+                         alt="Fish" width="60" height="60">
+                    <div class="product-tile__buttons">
+                        <a class="a_theme_light" href="#">Тунец</a>
+                        <button class="product-tile__button product-tile__button_theme_light">Купить</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    <aside class="page-layout__aside">
+        <form class="product-filter product-filter_theme_light">
+            <fieldset class="product-filter__type-block">
+                <legend class="product-filter__block-title">Морская рыба</legend>
+                <p>
+                    <input type="checkbox" id="kind1">
+                    <label for="kind1">Акула</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="kind2">
+                    <label for="kind2">Окунь</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="kind3">
+                    <label for="kind3">Палтус</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="kind4">
+                    <label for="kind4">Треска</label>
+                </p>
+            </fieldset>
+            <fieldset class="product-filter__type-block">
+                <legend class="product-filter__block-title">Пресноводная рыба</legend>
+                <p>
+                    <input type="checkbox" id="kind5">
+                    <label for="kind5">Белоглазка</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="kind6">
+                    <label for="kind6">Осётр</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="kind7">
+                    <label for="kind7">Речной угорь</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="kind8">
+                    <label for="kind8">Налим</label>
+                </p>
+            </fieldset>
+        </form>
+    </aside>
+    <div class="page-layout__trailing"></div>
+    <footer class="page-layout__footer page-layout__footer_theme_light">
+        <p>Контакты</p>
+        <p>&copy; 2021 ИП Рыбов О.А.</p>
+    </footer>
+</div>
 </body>
 </html>
