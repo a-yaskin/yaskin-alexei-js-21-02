@@ -3,7 +3,7 @@
 @nameColorLight: White;
 @headerColorLight: DarkCyan;
 @paneColorLight: Gainsboro;
-@paneHoverColorLight: Silver;
+@paneHoverColorLight: DarkGray;
 @linkColorLight: RoyalBlue;
 
 @contentColorDark: White;
@@ -50,6 +50,11 @@
     &_theme_dark {
       color: @nameColorDark;
       background-color: @headerColorDark;
+    }
+    &:hover~.page-layout__main {
+      .product-tile:not(:hover) {
+        transition-duration: 0ms;
+      }
     }
   }
   &__navigation {
@@ -140,23 +145,26 @@
 .product-tile {
   display: flex;
   padding: @spaceSize;
+  &:hover {
+    transition-property: background-color;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
+  }
+  &:not(:hover) {
+    transition-property: background-color;
+    transition-duration: 1200ms;
+    transition-timing-function: ease-in;
+  }
   &_theme_light {
     background-color: @paneColorLight;
     &:hover {
       background-color: @paneHoverColorLight;
-      transition-property: background-color;
-      transition-duration: 500ms;
-      transition-timing-function: ease-in-out;
     }
   }
   &_theme_dark {
     background-color: @paneColorDark;
-    &:hover,
-    &:not(:hover) {
+    &:hover {
       background-color: @paneHoverColorDark;
-      transition-property: background-color;
-      transition-duration: 500ms;
-      transition-timing-function: ease-in-out;
     }
   }
   &__buttons {
@@ -178,14 +186,6 @@
     }
   }
 }
-//@keyframes highlight {
-//  from {
-//    background-color: azure;
-//  }
-//  to {
-//    background-color: @paneHoverColorLight;
-//  }
-//}
 
 .product-filter {
   width: 100%;
@@ -215,36 +215,33 @@ html {
   height: 100%;
 }
 
-h1 {
+.padded {
   padding: 0 @spaceSize;
-  margin: 0;
-  font-size: 24px;
-  font-weight: bold;
 }
 
-h2 {
-  padding-left: @spaceSize;
-  padding-bottom: 0;
-  margin: 14px 0 0 0;
+.h-tag:extend(.padded) {
   font-weight: bold;
+  font-size: 24px;
+}
+
+h1:extend(.h-tag) {
+  margin: 0;
+}
+
+h2:extend(.h-tag) {
+  margin: 14px 0 0 0;
   font-size: 32px;
 }
 
-h3 {
-  padding-left: @spaceSize;
+h3:extend(.h-tag) {
   padding-top: 24px;
-  padding-bottom: 0;
-  font-weight: bold;
-  font-size: 24px;
 }
 
-p {
-  padding: 0 @spaceSize;
+p:extend(.padded) {
   margin: 0;
 }
 
-a {
-  padding: 0 @spaceSize;
+a:extend(.padded) {
 }
 
 .a {
