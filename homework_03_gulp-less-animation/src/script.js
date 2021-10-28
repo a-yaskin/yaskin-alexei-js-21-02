@@ -44,4 +44,9 @@ DOMReady(function () {
     // Assign a listener to the theme-switch checkbox
     document.getElementById('theme-switch')
         .addEventListener('change', toggleTheme);
+
+    setTimeout(() =>
+        document.getElementById('loader')
+            .style = 'display: none',
+       7000);
 });
