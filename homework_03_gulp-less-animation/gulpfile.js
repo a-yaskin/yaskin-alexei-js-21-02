@@ -51,3 +51,5 @@ gulp.task('distr', function (done) {
 });
 
 gulp.task('default', gulp.parallel('build', 'serve'));
+
+gulp.task('boot', gulp.series('less', 'copy', 'default'));
