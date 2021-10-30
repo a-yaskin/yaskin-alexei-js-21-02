@@ -1,23 +1,19 @@
 import * as React from 'react';
 import './App.css';
+import {Header} from "./components/header/Header";
+import {Products} from "./forms/products/Products";
+import {Aside} from "./components/aside/Aside";
+import {Footer} from "./components/footer/Footer";
 
-class App extends React.Component {
-  render():any {
+class App extends React.Component<any, any> {
+  render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="page-layout page-layout_theme_light">
+        <Header/>
+        <Products/>
+        <Aside/>
+        <div className="page-layout__trailing"/>
+        <Footer/>
       </div>
     );
   }
