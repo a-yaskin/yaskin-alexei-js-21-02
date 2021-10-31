@@ -26,6 +26,6 @@ export class Header extends React.Component<any, any> {
           </svg>
         </div>
       </header>
-  );
+    );
   }
 }
