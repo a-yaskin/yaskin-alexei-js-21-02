@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import {Header} from "./components/header/Header";
-import {Products} from "./forms/products/Products";
+import {Showcase} from "./forms/showcase/Showcase";
 import {Aside} from "./components/aside/Aside";
 import {Footer} from "./components/footer/Footer";
 
@@ -10,7 +10,7 @@ class App extends React.Component<any, any> {
     return (
       <div className="page-layout page-layout_theme_light">
         <Header/>
-        <Products/>
+        <Showcase/>
         <Aside/>
         <div className="page-layout__trailing"/>
         <Footer/>
