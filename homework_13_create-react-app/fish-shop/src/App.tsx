@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './App.css';
+import './App.scss';
 import {Header} from "./components/header/Header";
 import {Showcase} from "./forms/showcase/Showcase";
 import {Aside} from "./components/aside/Aside";
