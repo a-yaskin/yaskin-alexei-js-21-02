@@ -1,0 +1,35 @@
+@import (reference) '../../references/constants';
+@import (reference) '../../references/silent-classes';
+@import (reference) '../../references/mixin-functions';
+
+.product-tile {
+  display: flex;
+  padding: @spacer;
+  transition-property: background-color;
+  &:hover {
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
+  }
+  &:not(:hover) {
+    transition-duration: 1200ms;
+    transition-timing-function: ease-in;
+  }
+  .addThemes(@backgroundColors: @paneColorLight @paneColorDark, @hovers: @paneHoverColorLight @paneHoverColorDark);
+  &__buttons:extend(.x-flex-column) {
+    min-width: 76px;
+    height: 60px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-left: @shortSpacer;
+  }
+  &__button {
+    margin-left: @spacer;
+    .addThemes(@backgroundColors: none, @buttonColorDark; @colors: none, @contentColorDark)
+  }
+  @media @maxAux {
+    padding: @halfSpacer + 1px;
+    &__buttons {
+      margin-left: 0;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+// Usage:
+// .addAllThemes(@backgroundColors: light, dark;
+//                         @colors: light, dark;
+//                         @hovers: light, dark);
+// .addAllThemes(backgroundColorLight backgroundColorDark, [colorLight colorDark, [hoverLight hoverDark]);
+.addThemes(@backgroundColors: none, @colors: none, @hovers: none) {
+  .unfoldType(@type) {
+    @light: _theme_light;
+    @dark: _theme_dark;
+
+    @suffix: @@type;
+  }
+
+  .obtainPropNameFor(@value) {
+    @names: background-color, color, background-color;
+    @name: extract(@names, @value);
+  }
+
+  .addTheme(@type, @ruleset) {
+    @suffix: .unfoldType(@type)[@suffix];
+    &@{suffix} {
+      @ruleset();
+    }
+  }
+
+  @types: light, dark;
+  each(@types, .(@type, @k, @i) {
+    @ruleset: {
+      each(@arguments, {
+        & when not (@value = none) {
+          @prop: .obtainPropNameFor(@key)[@name];
+          @rule: {
+              @{prop}: extract(@value, @i);
+          }
+          & when not (@key = 3) { // @key = 3 is for hover colors
+            @rule();
+          }
+          & when (@key = 3) {
+            &:hover {
+              @rule();
+            }
+          }
+        }
+      });
+    }
+    .addTheme(@type, @ruleset);
+  });
+}

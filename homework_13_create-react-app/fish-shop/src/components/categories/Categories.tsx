@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './Categories.css';
 import {CategoriesItems} from "./__items/CategoriesItems";
 
 export class Categories extends React.Component<any, any> {

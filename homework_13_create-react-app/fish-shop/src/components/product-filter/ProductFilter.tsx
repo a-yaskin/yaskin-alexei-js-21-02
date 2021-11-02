@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './ProductFilter.css';
 
 export class ProductFilter extends React.Component<any, any> {
   render() {
