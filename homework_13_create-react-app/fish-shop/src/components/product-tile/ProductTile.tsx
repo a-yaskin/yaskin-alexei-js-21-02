@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './ProductTile.css';
 import {ProductTileButtons} from "./__buttons/ProductTileButtons";
 
 export class ProductTile extends React.Component<any, any> {

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './Products.css';
 import {ProductsTiles} from "./__tiles/ProductsTiles";
 
 export class Products extends React.Component<any, any> {

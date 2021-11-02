@@ -1,0 +1,15 @@
+@import (reference) '../../references/constants';
+@import (reference) '../../references/silent-classes';
+@import (reference) '../../references/mixin-functions';
+
+.categories {
+  &__items:extend(.x-grid) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &__item:extend(.x-flex-column) {
+    padding: @spacer 0;
+    margin-top: 32px;
+    font-size: 16px;
+    .addThemes(@paneColorLight @paneColorDark);
+  }
+}

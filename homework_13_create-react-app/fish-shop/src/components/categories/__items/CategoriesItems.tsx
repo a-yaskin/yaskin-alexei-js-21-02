@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {apiResponse} from "../../../api-mock/api";
 import {CategoriesItem} from "../__item/CategoriesItem";
+import {apiResponse} from "../../../api-mock/api";
 
 export class CategoriesItems extends React.Component<any, any> {
   render() {

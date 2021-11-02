@@ -1,37 +1,33 @@
-@import 'constants';
+@import (reference) 'constants';
 
-%grid {
+.x-grid {
   width: 100%;
   display: grid;
   grid-auto-rows: auto;
-  grid-gap: $spacer;
-  @media #{$maxAux} {
-    grid-gap: $halfSpacer;
+  grid-gap: @spacer;
+  @media @maxAux {
+    grid-gap: @halfSpacer;
   }
 }
 
-%flex {
+.x-flex {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-%flex-column {
+.x-flex-column {
   display: flex;
   flex-direction: column;
 }
 
-@mixin padded {
-  padding: 0 $spacer;
+.x-padded {
+  padding: 0 @spacer;
 }
 
-%padded {
-  @include padded();
-}
-
-%h {
-  @include padded();
+.x-h {
+  .x-padded();
   font-weight: bold;
   font-size: 24px;
 }

@@ -1,0 +1,27 @@
+@contentColorLight: Black;
+@backgroundColorLight: White;
+@nameColorLight: White;
+@headerColorLight: DarkCyan;
+@paneColorLight: Gainsboro;
+@paneHoverColorLight: darken(@paneColorLight, 20%);
+@linkColorLight: RoyalBlue;
+
+@contentColorDark: White;
+@backgroundColorDark: Black;
+@nameColorDark: Khaki;
+@headerColorDark: SeaGreen;
+@paneColorDark: Gray;
+@paneHoverColorDark: lighten(@paneColorDark, 20%);
+@linkColorDark: PowderBlue;
+@buttonColorDark: SlateGray;
+
+@spacer: 12px;
+@doubleSpacer: @spacer * 2;
+@halfSpacer: (@spacer / 2);
+@shortSpacer: (@spacer / 3);
+
+@maxPhone: ~'(max-width: 587px)'; // LESS understands without ~'', IDEA doesn't
+@minmaxPrPad: ~'(min-width: 588px) and (max-width: 775px)';
+@maxAux: ~'(max-width: 850px)';
+@minmaxLsPad: ~'(min-width: 776px) and (max-width: 1024px)';
+@minDesktop: ~'(min-width: 1025px)';

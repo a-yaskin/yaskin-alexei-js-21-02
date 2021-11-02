@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ProductFilter} from "../product-filter/ProductFilter";
+import {ProductFilter} from "../../product-filter/ProductFilter";
 
 export class Aside extends React.Component<any, any> {
   render() {
