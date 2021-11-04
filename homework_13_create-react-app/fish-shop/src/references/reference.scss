@@ -1,0 +1,37 @@
+@import 'constants';
+
+%grid {
+  width: 100%;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: $spacer;
+  @media #{$maxAux} {
+    grid-gap: $halfSpacer;
+  }
+}
+
+%flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+%flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin padded {
+  padding: 0 $spacer;
+}
+
+%padded {
+  @include padded();
+}
+
+%h {
+  @include padded();
+  font-weight: bold;
+  font-size: 24px;
+}

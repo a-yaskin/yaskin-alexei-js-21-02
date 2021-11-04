@@ -1,0 +1,33 @@
+@import (reference) 'constants';
+
+.x-grid {
+  width: 100%;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: @spacer;
+  @media @maxAux {
+    grid-gap: @halfSpacer;
+  }
+}
+
+.x-flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.x-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.x-padded {
+  padding: 0 @spacer;
+}
+
+.x-h {
+  .x-padded();
+  font-weight: bold;
+  font-size: 24px;
+}
