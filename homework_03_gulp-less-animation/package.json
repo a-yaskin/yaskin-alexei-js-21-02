@@ -1,0 +1,35 @@
+{
+  "name": "homework_03_gulp-less-animation",
+  "version": "1.0.0",
+  "description": "Learning Gulp, LESS, and CSS animation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "gulp",
+    "boot": "gulp boot",
+    "serve": "gulp serve",
+    "build": "gulp build",
+    "distr": "gulp distr"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-yaskin/yaskin-alexei-js-21-02.git"
+  },
+  "author": "Alexei Yaskin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a-yaskin/yaskin-alexei-js-21-02/issues"
+  },
+  "homepage": "https://github.com/a-yaskin/yaskin-alexei-js-21-02#readme",
+  "devDependencies": {
+    "browser-sync": "^2.27.5",
+    "cssnano": "^5.0.8",
+    "gulp": "^4.0.2",
+    "gulp-less": "^5.0.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.0.0",
+    "less": "^4.1.2",
+    "postcss": "^8.3.11",
+    "sass": "^1.43.4"
+  }
+}

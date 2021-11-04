@@ -1,0 +1,198 @@
+@contentColorLight: Black;
+@backgroundColorLight: White;
+@nameColorLight: White;
+@headerColorLight: DarkCyan;
+@paneColorLight: Gainsboro;
+@paneHoverColorLight: darken(@paneColorLight, 20%);
+@linkColorLight: RoyalBlue;
+
+@contentColorDark: White;
+@backgroundColorDark: Black;
+@nameColorDark: Khaki;
+@headerColorDark: SeaGreen;
+@paneColorDark: Gray;
+@paneHoverColorDark: lighten(@paneColorDark, 20%);
+@linkColorDark: PowderBlue;
+@buttonColorDark: SlateGray;
+
+@spacer: 12px;
+@doubleSpacer: @spacer * 2;
+@halfSpacer: (@spacer / 2);
+@shortSpacer: (@spacer / 3);
+
+@maxPhone: ~'(max-width: 587px)'; // LESS understands without ~'', IDEA doesn't
+@minmaxPrPad: ~'(min-width: 588px) and (max-width: 775px)';
+@maxAux: ~'(max-width: 850px)';
+@minmaxLsPad: ~'(min-width: 776px) and (max-width: 1024px)';
+@minDesktop: ~'(min-width: 1025px)';
+
+.x-grid {
+  width: 100%;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: @spacer;
+  @media @maxAux {
+    grid-gap: @halfSpacer;
+  }
+}
+
+.x-flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.x-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.unfoldType(@type) {
+  @light: _theme_light;
+  @dark: _theme_dark;
+
+  @suffix: @@type;
+}
+
+.addAllThemesNew(@backgroundColors: none, @colors: none, @hovers: none) {
+  .obtainPropNameFor(@value) {
+    @names: background-color, color;
+    @name: extract(@names, @value);
+  }
+
+  .addTheme(@type, @ruleset) {
+    @suffix: .unfoldType(@type)[@suffix];
+    &@{suffix} {
+      @ruleset();
+    }
+  }
+
+  @types: light, dark;
+  each(@types, .(@type, @k, @i) {
+    @ruleset: {
+      each(@arguments, {
+        & when not (@value = none) and not (@key = 3) { // @key = 3 is for hover colors
+          @prop: .obtainPropNameFor(@key)[@name];
+          @{prop}: extract(@value, @i);
+        }
+        & when not (@value = none) and (@key = 3) {
+          &:hover {
+            background-color: extract(@value, @i);
+          }
+        }
+      });
+    }
+    .addTheme(@type, @ruleset);
+  });
+}
+
+.addTheme(@type, @backgroundColor) {
+  @suffix: .unfoldType(@type)[@suffix];
+  &@{suffix} {
+    background-color: @backgroundColor;
+  }
+}
+
+.addTheme(@type, @backgroundColor, @color) {
+  @suffix: .unfoldType(@type)[@suffix];
+  &@{suffix} {
+    color: @color;
+    background-color: @backgroundColor;
+  }
+}
+
+// Usage:
+// .addAllThemes(@backgroundColors: light, dark;
+//                         @colors: light, dark;
+//                         @hovers: light, dark);
+// .addAllThemes(backgroundColorLight, backgroundColorDark);
+.addAllThemes(@backgroundColors: none, @colors: none, @hovers: none) {
+  @suffixLight: .unfoldType(light)[@suffix];
+  @suffixDark: .unfoldType(dark)[@suffix];
+
+  .getColor(@type, @colors) when not (@colors = none) {
+    .map(light) {
+      index: 1;
+    }
+    .map(dark) {
+      index: 2;
+    }
+    @color: extract(@colors, .map(@type)[index]);
+  }
+
+  .addColor() when
+    not (@backgroundColors = none) and
+    not (@colors = none) {
+    &@{suffixLight} when not (.getColor(light, @colors)[@color] = none) {
+      color: .getColor(light, @colors)[@color];
+      background-color: .getColor(light, @backgroundColors)[@color];
+    }
+    &@{suffixDark} {
+      color: .getColor(dark, @colors)[@color];
+      background-color: .getColor(dark, @backgroundColors)[@color];
+    }
+  }
+  .addColor() when
+    (@backgroundColors = none) and
+    not (@colors = none) {
+    &@{suffixLight} {
+      color: .getColor(light, @colors)[@color];
+    }
+    &@{suffixDark} {
+      color: .getColor(dark, @colors)[@color];
+    }
+  }
+  .addColor() when
+    not (@backgroundColors = none) and
+    (@colors = none) {
+    &@{suffixLight} {
+      background-color: .getColor(light, @backgroundColors)[@color];
+      &:hover when not (@hovers = none) {
+        background-color: .getColor(light, @hovers)[@color];
+      }
+    }
+    &@{suffixDark} {
+      background-color: .getColor(dark, @backgroundColors)[@color];
+      &:hover when not (@hovers = none) {
+        background-color: .getColor(dark, @hovers)[@color];
+      }
+    }
+  }
+  .addColor();
+}
+
+// Format the same as above
+.addThemesRuleset(@backgroundColors: none, @colors: none, @hovers: none) {
+    @ruleset: {
+    &_theme_light when not (@backgroundColors = none) {
+      background-color: extract(@backgroundColors, 1);
+      &:hover when not (@hovers = none) {
+        background-color: extract(@hovers, 2);
+      }
+    }
+    &_theme_dark when not (@backgroundColors = none) {
+      background-color: extract(@backgroundColors, 2);
+      &:hover when not (@hovers = none) {
+        background-color: extract(@hovers, 2);
+      }
+    }
+    &_theme_light when not (@colors = none) {
+      color: extract(@colors, 1);
+    }
+    &_theme_dark when not (@colors = none) {
+      color: extract(@colors, 2);
+    }
+  }
+  @ruleset();
+}
+
+.x-padded {
+  padding: 0 @spacer;
+}
+
+.x-h {
+  .x-padded();
+  font-weight: bold;
+  font-size: 24px;
+}
