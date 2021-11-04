@@ -1,0 +1,8 @@
+{
+//  "files": ["./src/main.ts", "./src/module.ts"],
+  "files": ["./src/*.ts"],
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "target": "ES5"
+  }
+}
