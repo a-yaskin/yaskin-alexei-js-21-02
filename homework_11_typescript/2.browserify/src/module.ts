@@ -1,1 +1,1 @@
-export const printHello = (name: string) => alert(`Hello ${name}!`); // 22:33
+export const printHello = (name: string) => alert(`Hello ${name}!`);
