@@ -1,0 +1,13 @@
+@import (reference) '../../references/constants';
+@import (reference) '../../references/silent-classes';
+@import (reference) '../../references/mixin-functions';
+
+.products {
+  &__tiles:extend(.x-grid) {
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: @spacer;
+    @media @minmaxPrPad {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
