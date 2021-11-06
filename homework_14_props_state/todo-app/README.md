@@ -1,3 +1,23 @@
+## Notes
+`npm i --save-dev typescript`
+
+`npx tsc --init`
+
+`tsc --init` worked as well (global TypeScript setup??)
+
+### For yarn
+`yarn add --dev typescript`
+
+or 
+`yarn global add typescript`
+
+- create a package.json: run `yarn init` or setting defaults `yarn init -yp`
+- create a tsconfig.json: run `tsc --init` or `yarn tsc --init`
+
+#### Note: if errors like "ESLint: Error: Cannot read config file:...":
+- try to remove `node_modules` and run `yarn` to install it again; and/or
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
