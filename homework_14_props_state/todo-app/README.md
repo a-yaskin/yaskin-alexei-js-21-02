@@ -15,8 +15,14 @@ or
 - create a tsconfig.json: run `tsc --init` or `yarn tsc --init`
 
 #### Note: if errors like "ESLint: Error: Cannot read config file:...":
-- try to remove `node_modules` and run `yarn` to install it again; and/or
+- try to remove `node_modules` and run `yarn` to install it again.
 
+#### Note too: if some code autocompletion does not work correctly,
+- try to Invalidate Caches...
+
+### Configure ESLint:
+https://www.jetbrains.com/help/webstorm/eslint.html#ws_js_eslint_activate
+https://www.jetbrains.com/help/webstorm/using-tslint-code-quality-tool.html#ws_eslint_linting_typescript_files_with_eslint
 
 # Getting Started with Create React App
 
