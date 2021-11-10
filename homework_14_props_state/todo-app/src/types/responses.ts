@@ -2,10 +2,12 @@ interface CommonResponse {
   status: 'ok' | 'error';
 }
 
-export interface ToDoResponse extends CommonResponse {
-  result: Array<ToDoType>;
+export interface ToDoType {
+  id: number;
+  description?: string;
+  completed?: boolean;
 }
 
-export interface ToDoType {
-  description?: string;
+export interface ToDoResponse extends CommonResponse {
+  result: Array<ToDoType>;
 }

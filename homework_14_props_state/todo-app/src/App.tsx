@@ -1,12 +1,16 @@
 import * as React from 'react';
 import './App.css';
-import List from './forms/list/List';
+import Header from './components/header/Header';
+import ListView from './forms/list-view/ListView';
+import Footer from './components/footer/Footer';
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <List />
+        <Header />
+        <ListView />
+        <Footer />
       </div>
     );
   }

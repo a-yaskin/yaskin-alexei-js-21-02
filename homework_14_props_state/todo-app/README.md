@@ -24,6 +24,11 @@ or
 https://www.jetbrains.com/help/webstorm/eslint.html#ws_js_eslint_activate
 https://www.jetbrains.com/help/webstorm/using-tslint-code-quality-tool.html#ws_eslint_linting_typescript_files_with_eslint
 
+### Disable ESLint for a file
+Write `/* eslint-disable */` at the first line of the file
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

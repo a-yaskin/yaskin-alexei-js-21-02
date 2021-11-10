@@ -1,0 +1,5 @@
+.item__description_completed {
+  text-decoration-line: line-through;
+  color: Darkgray;
+  font-style: italic;
+}
