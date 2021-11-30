@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './TaskCounter.css';
 
 interface Props {
   countOfCompleted: number;

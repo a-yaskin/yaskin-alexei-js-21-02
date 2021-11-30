@@ -1,16 +1,16 @@
-import { ToDoResponse } from '../types/responses';
+import { TodoResponse } from '../types/responses';
 
-export const apiResponse: ToDoResponse = {
-  status: 'ok',
+export const apiResponse: TodoResponse = {
+  status: 'Ok',
   result: [
     {
       id: 1,
-      description: 'Todo Item 1',
-      completed: true,
+      title: 'Todo Item 1',
+      completed: false,
     },
     {
       id: 2,
-      description: 'Todo Item 2',
+      title: 'Todo Item 2',
       completed: false,
     },
     {
@@ -18,7 +18,7 @@ export const apiResponse: ToDoResponse = {
     },
     {
       id: 4,
-      description: '',
+      title: '',
     },
   ],
 };

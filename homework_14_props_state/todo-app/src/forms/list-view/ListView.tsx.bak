@@ -1,11 +1,10 @@
 import * as React from 'react';
-import './ListView.css';
 import NewItem from '../../components/new-item/NewItem';
 import List from '../../components/list/List';
 import TaskCounter from '../../components/task-counter/TaskCounter';
-// import { TodoResponse } from '../../types/responses';
+import { TodoResponse } from '../../types/responses';
 import { TodoItem } from '../../types/entities';
-// import { apiResponse } from '../../api-mock/api';
+import { apiResponse } from '../../api-mock/api';
 import Storage, { StorageType } from '../../storage/Storage';
 import StorageService from '../../storage/StorageService';
 
@@ -22,59 +21,56 @@ interface Props {
 }
 
 interface State {
-  items: TodoItem[];
-  // todoResponse: TodoResponse;
-  // currentId: number;
+  todoResponse: TodoResponse;
+  currentId: number;
   counts: Counts;
 }
 
 class ListView extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.storageService = StorageService.init(
-      new Storage(StorageType.Local, 'ToDo List 211ab9d6-c2db-459f-8032-97ea8946ed3e'),
-    );
     this.state = {
-      items: this.storageService.data,
-      // todoResponse: apiResponse,
-      // currentId: Math.max( // OR: .reduce((a, b) => Math.max(a, b), 0) OR: Math.max.apply(null, numArray)
-      //   // (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max)
-      //   ...apiResponse.result
-      //     .filter((item) => !!item.id || 0)
-      //     .map((item) => item.id),
-      // ),
+      todoResponse: apiResponse,
+      currentId: Math.max( // OR: .reduce((a, b) => Math.max(a, b), 0) OR: Math.max.apply(null, numArray)
+        // (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max)
+        ...apiResponse.result
+          .filter((item) => !!item.id || 0)
+          .map((item) => item.id),
+      ),
       counts: {
-        countOfCompleted: this.storageService.data // apiResponse.result
+        countOfCompleted: apiResponse.result
           .filter((item) => !!item.completed)
           .reduce((count) => count + 1, 0),
-        totalCount: this.storageService.data // apiResponse.result
+        totalCount: apiResponse.result
           .reduce((count) => count + 1, 0),
       },
     };
+    const storageService = StorageService.init(
+      new Storage(StorageType.Local, 'ToDo List 211ab9d6-c2db-459f-8032-97ea8946ed3e'),
+    );
+    storageService.process(storageService.getAllItems, { id: 1, data: 'description' });
   }
 
-  private storageService: StorageService<TodoItem>;
+  addItem = (description: string) => {
+    this.setState((prevState) => ({ currentId: prevState.currentId + 1 }), () => { // Using prevState as
+      // id should be unique
+      const id = this.state.currentId;
+      const responseCopy = { ...this.state.todoResponse }; // It makes just a shallow copy (result ref. to the original)
+      // const responseCopy = Object.assign({}, this.state.todoResponse); // ESLint prefers spread operator
+      // const { todoResponse: responseCopy } = this.state; // Does not make a copy!!!
+      responseCopy.result = [...responseCopy.result]; // This copies the result array (item objects are refs yet)
+      const newItem: TodoItem = {
+        id, // change to -1
+        description,
+        completed: false, // remove and check if works everywhere
+      };
+      responseCopy.result.push(newItem);
+      // console.log('state result: ', this.state.todoResponse.result,
+      //   '\n copy result: ', responseCopy.result);
 
-  addItem = (title: string) => {
-    // this.setState((prevState) => ({ currentId: prevState.currentId + 1 }), () => { // Using prevState as
-    //   // id should be unique
-    //   const id = this.state.currentId;
-    //   const responseCopy = { ...this.state.todoResponse }; // It makes just a shallow copy (ref. to the original)
-    //   // const responseCopy = Object.assign({}, this.state.todoResponse); // ESLint prefers spread operator
-    //   // const { todoResponse: responseCopy } = this.state; // Does not make a copy!!!
-    //   responseCopy.result = [...responseCopy.result]; // This copies the result array (item objects are refs yet)
-    const newItem: TodoItem = {
-      id: -1,
-      title,
-    };
-    this.storageService.addItem(newItem);
-    // responseCopy.result.push(newItem);
-    // // console.log('state result: ', this.state.todoResponse.result,
-    // //   '\n copy result: ', responseCopy.result);
-
-    const counts = this.updateCounts({ totalCount: true });
-    this.setState({ items: this.storageService.data, counts }); // todoResponse: responseCopy
-    // });
+      const counts = this.updateCounts({ totalCount: true });
+      this.setState({ todoResponse: responseCopy, counts });
+    });
   };
 
   // saveItem = (id: number, completion: boolean) => {
@@ -85,44 +81,41 @@ class ListView extends React.Component<Props, State> {
   // };
 
   toggleCompletion = (id: number) => {
-    const itemIndex = this.state.items // this.state.todoResponse.result
+    const itemIndex = this.state.todoResponse.result
       .findIndex((elem) => elem.id === id);
-    // const item = { ...this.state.todoResponse.result[itemIndex] };
-    const item = { ...this.state.items[itemIndex] };
+    const item = { ...this.state.todoResponse.result[itemIndex] };
     item.completed = !item.completed;
-    this.storageService.updateItem(item);
 
-    // const copiedTodoResponse = { ...this.state.todoResponse }; // In such cases can use JSON.parse(JSON.stringify(o))
-    // const copiedResult = [...copiedTodoResponse.result]; // instead, this creates a deep copy of obj
-    // copiedResult[itemIndex] = item;
-    // copiedTodoResponse.result = copiedResult;
+    const copiedTodoResponse = { ...this.state.todoResponse }; // In such cases can use JSON.parse(JSON.stringify(obj))
+    const copiedResult = [...copiedTodoResponse.result]; // instead, this creates a deep copy of obj
+    copiedResult[itemIndex] = item;
+    copiedTodoResponse.result = copiedResult;
     // console.log('state result: ', JSON.stringify(this.state.todoResponse.result),
     //   '\n copy result: ', JSON.stringify(copiedTodoResponse.result));
 
     const counts = this.updateCounts({ countOfCompleted: item.completed });
     // console.log('[toggle] ============ Counts: ', counts);
-    this.setState({ items: this.storageService.data, counts }); // todoResponse: copiedTodoResponse
+    this.setState({ todoResponse: copiedTodoResponse, counts });
   };
 
   deleteItem = (id: number) => {
-    const itemIndex = this.state.items // this.state.todoResponse.result
+    const itemIndex = this.state.todoResponse.result
       .findIndex((elem) => elem.id === id);
-    // const updatedTodoResponse = { ...this.state.todoResponse };
-    // const updatedResult = [...updatedTodoResponse.result];
-    // const itemArr = updatedResult.splice(itemIndex, 1);
-    // updatedTodoResponse.result = updatedResult;
+    const updatedTodoResponse = { ...this.state.todoResponse };
+    const updatedResult = [...updatedTodoResponse.result];
+    const itemArr = updatedResult.splice(itemIndex, 1);
+    updatedTodoResponse.result = updatedResult;
     // console.log('state result: ', JSON.stringify(this.state.todoResponse.result),
     //   '\n copy result: ', JSON.stringify(updatedTodoResponse.result));
-    const item = this.storageService.deleteItem(this.state.items[itemIndex]) || this.state.items[itemIndex]; // f/linter
 
     // const countOfCompleted = this.state.counts.countOfCompleted + (itemArr[0].completed ? -1 : 0);
     // const totalCount = this.state.counts.totalCount - 1;
     // The above 2 lines are equal to 4 lines below (besides different setState calls for them):
     const counts = this.updateCounts({
-      countOfCompleted: item.completed ? false : undefined, // itemArr[0].completed
+      countOfCompleted: itemArr[0].completed ? false : undefined,
       totalCount: false,
     });
-    this.setState({ items: this.storageService.data, counts });
+    this.setState({ todoResponse: updatedTodoResponse, counts });
   };
 
   // updateCount = (increment: boolean, countObj: any) => {
@@ -170,12 +163,12 @@ class ListView extends React.Component<Props, State> {
 
   render() {
     return (
-      <main>
+      <div className="list-view">
         <NewItem
           addItem={this.addItem}
         />
         <List
-          items={this.state.items} // this.state.todoResponse.result
+          items={this.state.todoResponse.result}
           // incrementCounter={this.incrementCounter}
           // decrementCounter={this.decrementCounter}
           // saveItem={this.saveItem}
@@ -186,7 +179,7 @@ class ListView extends React.Component<Props, State> {
           countOfCompleted={this.state.counts.countOfCompleted as number}
           countOfTotal={this.state.counts.totalCount as number}
         />
-      </main>
+      </div>
     );
   }
 }

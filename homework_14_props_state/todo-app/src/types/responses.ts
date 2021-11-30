@@ -1,13 +1,9 @@
+import { TodoItem } from './entities';
+
 interface CommonResponse {
-  status: 'ok' | 'error';
+  status: 'Ok' | 'Error';
 }
 
-export interface ToDoType {
-  id: number;
-  description?: string;
-  completed?: boolean;
-}
-
-export interface ToDoResponse extends CommonResponse {
-  result: Array<ToDoType>;
+export interface TodoResponse extends CommonResponse {
+  result: Array<TodoItem>;
 }
