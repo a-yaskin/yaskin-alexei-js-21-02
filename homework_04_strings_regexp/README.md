@@ -13,7 +13,7 @@ str.indexOf('substringToLookUp', indexToStart): number;
 str.lastIndexOf() same but reverse\
 str.includes('substr', indexToStart): boolean\
 str.startsWith('substr'): boolean\
-str.endsWith('substr'): boolean\
+str.endsWith('substr'): boolean
 
 str.slice(7, 8): string; does not change str
 (last index char is not included),
@@ -28,7 +28,7 @@ str.split(separator:' '): Array\
 str.repeat(count:5)
 
 str.search(regex:'string'): index of the first entry\
-str.replace(searchVal:'string', replaceVal:'string')\
+str.replace(searchVal:'string', replaceVal:'string')
 
 str.padStart(20,'***') / padEnd()\
 str.trim() / trimLeft trimRight / trimStart / trimEnd
@@ -107,9 +107,9 @@ regex.test(string): boolean
 
 (....|....) <<< parentheses group
 
-#### Hungry and Lazy Quantifiers
+#### Greedy and Lazy Quantifiers
 
-    /\(.+\)/g <<<< hungry
+    /\(.+\)/g <<<< greedy
     'Тесла (Циалковский) Павлов (Ньютон) Эдиссон'
         .match(regExp)
 
@@ -117,7 +117,7 @@ regex.test(string): boolean
     'Тесла (Циалковский) Павлов (Ньютон) Эдиссон'
         .match(regExp)
 
-#### Forward-looking match
+#### Lookahead assertions
 
     regex = 
     /(?<year>\d{4})-(?<month>\d{2})-(?<date>\d{2})/gi
@@ -135,14 +135,14 @@ To exclude '$' from the result:
     /\d+(?!\$)/gi
     '2330 30$ 234% 45$ 20393&'.match(regex)
 
-#### Retrospective looking match
+#### Lookbehind assertions
 
 Same, but at the beginning and using '<='
 
     /(?<=\$)\d+/gi
     '2330 $30 %234 $45 &20393'.match(regex)
 
-reverse check '<!':
+negative check '<!':
 
     /(?<!\$)\d+/gi
 
