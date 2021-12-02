@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 04. Strings. Regexps.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/base16/colors.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+  <script src="index.js" defer></script>
+  <style>
+    h1 {
+      font: normal 700 1.8rem/1 palatino, "Palatino Linotype", serif;
+      letter-spacing: .035rem;
+    }
+    p {
+      font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+    }
+    pre {
+      font-size: 1.2rem;
+      margin: 0 1rem;
+      padding: 0;
+    }
+    button {
+      font-size: 1rem;
+      margin: 1rem 0 2rem 4rem;
+    }
+  </style>
+</head>
+<body>
+<script>hljs.highlightAll();</script>
+<h1>Домашнее задание. Взаимодействие с пользователем, строки, их методы, регулярные выражения</h1>
+
+<p>    1. Написать скрипт, предлогающий пользователю ввести две строки через запятую. Вывести сообщение true,
+  если вторая строка содержится в первый, в противном случае false, регистр при проверке не учитывать.</p>
+<pre>
+  <code class="language-javascript">
+<!--    <script>-->
+      const strings = prompt(
+        'Please enter 2 strings separated with comma:',
+        'First string,string');
+      const arr = strings
+        .toLowerCase()
+        .split(',');
+
+      alert(arr[0]
+        .includes(arr[1])
+      );
+<!--    </script>-->
+  </code>
+</pre>
+
+<p>    2. Пользователь вводит строку, затем число (кол-во символов). Функция усекает строку до кол-ва символов
+  и добавляет многоточие.</p>
+<pre>
+  <code class="language-javascript">
+<!--    <script>-->
+      const string = prompt(
+        'Please enter a string to truncate:',
+        'This is a string to truncate'
+      );
+      const length = Number(prompt(
+        'And now a number of symbols to keep from the string:',
+        '22'
+      ));
+
+      alert(string
+        .substr(0, length)
+        .concat(' ...')
+      );
+<!--    </script>-->
+  </code>
+</pre>
+
+<p>    4. Написать функцию, преобразующее строку с датой и временем формата '12/02/2021 12-00' в строку
+  формата 12.02.2021 12:00, используя регулярные выражения</p>
+<pre>
+  <code class="language-javascript">
+<!--    <script>-->
+      const dateRegex = /\//g;
+      const timeRegex = /-/;
+
+      const string = prompt(
+        'Please enter date and time in dd/mm/yyyy hh-mm format:',
+        '12/02/2021 12-00'
+      );
+
+      alert(string
+        .replace(dateRegex, '.')
+        .replace(timeRegex, ':')
+      );
+<!--    </script>-->
+  </code>
+</pre>
+
+<p>    5. Написать функцию, валидирующую ФИО из кирилличиских символов (считать, что отчество может оканчиваться
+  олько на "вна" или "вич" или может отсутствовать)</p>
+<pre>
+  <code class="language-javascript">
+<!--    <script>-->
+      const fullName = prompt(
+        'Please enter a full name (in Cyrillic!) - ФИО:',
+        'Иванов Иван Иванович'
+      );
+
+      const regExp = /^[а-яА-Я]+ [а-яА-Я]+( [а-яА-Я]+(вич|вна))?$/;
+
+      alert(regExp.test(fullName));
+<!--    </script>-->
+  </code>
+</pre>
+
+<p>    5. На вход дана строка в PamalCase, преобразовать строку в snake_case</p>
+<pre>
+  <code class="language-javascript">
+<!--    <script>-->
+      const string = prompt(
+        'Please enter a string in CamelCase:',
+        'aStringInCamelCase'
+      );
+
+      const regExp = /[a-z]+(?=[A-Z])/g;
+
+      alert(string
+        .replace(regExp,
+          (substr) => substr.concat('_')
+        )
+        .toLowerCase()
+      );
+<!--    </script>-->
+  </code>
+</pre>
+
+<p>    6. На вход даётся многострочная строка, найти и вернуть через alert все html комментарии</p>
+<pre>
+  <code class="language-javascript">
+    <noscript>
+      const codeString = `
+<p>text text</p><!--
+ comments
+111    -->
+<p>text
+    text</p>
+<!--comments
+ 222
+--><p>text text</p><!-  not comment ->
+<!--comments 333-->
+<p>text text</p>
+<!--     comments 444--><p>text text</p><!--  comments
+
+
+555 -->
+`;
+
+      const stringInput = prompt(
+        'Please enter a multiline HTML code with comments:',
+        codeString
+      );
+
+      const regExp = new RegExp('(?<=<!--\\s*\\b)(?:.|\\s)*?(?=\\s*-->)', 'gm');
+
+      alert(stringInput.match(regExp));
+    </noscript>
+  </code>
+</pre>
+
+<p>    7. На вход дана строка, вернуть через alert все числа (десятичные разделяются сиволом ".")</p>
+<pre>
+  <code class="language-javascript">
+<!--    <script>-->
+      const stringInput = prompt(
+        'Please enter a string with numbers:',
+        'some text ee0.99dd er.01. rr99584.ee test ee.rrr text 33.5544- 22 word az9999 remark 3838.001.9 .033100. 100.'
+      );
+
+      const regExp = /(?:\d+|\d*(?=\.\d+))(?:\.\d+)?/g;
+
+      alert(stringInput.match(regExp));
+<!--    </script>-->
+  </code>
+</pre>
+
+<p>    8. Валидация введённого значения. Вводится идентификатор документа. Идентификатор должен состоять
+  из четырёх частей по четыре символа,разделённых или не разделённых знаком "-". Допускаются только символы
+  латинского алфавита и числа. Вывести через alert "ведётся поиск", при соответствии введённого значения,
+  или "неверный илентификатор", при несоответствии. При несоответствии снова вывести форму для ввода строки.</p>
+<pre>
+  <code class="language-javascript">
+<!--    <script>-->
+      const regExp = /(?:[0-9a-zA-Z]{4}-?){4}/g;
+      let test;
+
+      do {
+        const stringInput = prompt(
+          'Please enter a document identifier:',
+          'DETR-9994iF33-3nb5'
+        );
+
+        test = regExp.test(stringInput);
+
+        if (!test) {
+          alert('Неверный идентификатор');
+        }
+
+      } while (!test);
+
+      alert('Ведется поиск');
+<!--    </script>-->
+  </code>
+</pre>
+</body>
+</html>

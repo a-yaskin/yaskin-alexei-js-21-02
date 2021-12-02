@@ -1,0 +1,24 @@
+{
+  "name": "homework_04_strings_regexp",
+  "version": "1.0.0",
+  "description": "Learning working with strings and RegExps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "gulp serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-yaskin/yaskin-alexei-js-21-02.git"
+  },
+  "author": "Alexei Yaskin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a-yaskin/yaskin-alexei-js-21-02/issues"
+  },
+  "homepage": "https://github.com/a-yaskin/yaskin-alexei-js-21-02#readme",
+  "devDependencies": {
+    "browser-sync": "^2.27.7",
+    "gulp": "^4.0.2"
+  }
+}
