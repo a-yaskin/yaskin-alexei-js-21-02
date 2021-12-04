@@ -290,9 +290,26 @@
   (считать, что значением ключа объекта не может быть объектом или массивом, содержащими объекты) сама функция в
   консоль выводиться не должна.</p>
 <pre>
-  <script class="language-javascript">
+  <code class="language-javascript">
+    const obj = {
+      date: '2001/05/03',
+      time: '12:00:00',
+      age: 29,
+      name: 'George',
+      list: [22,33,44],
+    };
 
-  </script>
+    Object.defineProperty(obj, 'logKeysValues', {
+      value: function () {
+        const propArray = Object.entries(this)
+          .map(([key, value]) => `${key}: ${value}`);
+        console.log(propArray.join(', '),'\n\n');
+      },
+      enumerable: false
+    });
+
+    obj.logKeysValues();
+  </code>
 </pre>
 
 <p>11. Создать функцию-конструктор для объекта, содержащего методы serProp (установить значение свойства), метод
@@ -301,6 +318,27 @@
   свойств в объекте отсутствует, действие должно быть разрешено</p>
 <pre>
   <code class="language-javascript">
+    function ManageableObj() {
+      this.setProp = function (key, value, descriptor) {
+        const { writable = true, enumerable = true, configurable = true } = descriptor;
+        Object.defineProperty(this, key, {
+          value,
+          writable,
+          enumerable,
+          configurable,
+        });
+      }
+    }
+
+    const obj = new ManageableObj();
+    obj.setProp('user', 'administrator', {writable: false, configurable: false});
+    obj.setProp('phone', '550-333-2334', {configurable: false});
+    obj.setProp('age', 30, {writable: false, configurable: false});
+
+    console.log('The object:                       ', JSON.stringify(obj),
+              '\nThe own properties of the object: ', JSON.stringify(Object
+        .getOwnPropertyDescriptors(obj), null, '\t\t\r')
+    );
   </code>
 </pre>
 </body>
