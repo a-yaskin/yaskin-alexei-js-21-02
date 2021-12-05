@@ -82,7 +82,7 @@
       }
     });
 
-    console.log(`The initial array:                   ${JSON.stringify(array.reverse())}`);
+    console.log(`The initial array:                   ${JSON.stringify(array.slice().reverse())}`);
     console.log(`A new reversed array:                ${JSON.stringify(reversedArray)}`);
     console.log(`The original array changed in-place: ${JSON.stringify(array)}`, '\n\n');
   </code>
