@@ -70,7 +70,6 @@
 <pre>
   <code class="language-javascript">
     const array = [1, 2, 3, 3, 2, 1, 9, 8, 5, 5, 6, 4];
-    // array.reverse();
 
     const reversedArray = array.map((elem, index) =>
       array[array.length - index - 1]);
@@ -83,6 +82,7 @@
       }
     });
 
+    console.log(`The initial array:                   ${JSON.stringify(array.reverse())}`);
     console.log(`A new reversed array:                ${JSON.stringify(reversedArray)}`);
     console.log(`The original array changed in-place: ${JSON.stringify(array)}`, '\n\n');
   </code>
@@ -302,6 +302,7 @@
     Object.defineProperty(obj, 'logKeysValues', {
       value: function () {
         const propArray = Object.entries(this)
+          .filter(item => !Array.isArray(item[1]))
           .map(([key, value]) => `${key}: ${value}`);
         console.log(propArray.join(', '),'\n\n');
       },
