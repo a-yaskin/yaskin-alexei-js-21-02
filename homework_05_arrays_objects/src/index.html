@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 05. Arrays. Objects. Sets.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/base16/colors.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+  <script src="index.js" defer></script>
+  <style>
+    h1 {
+      font: normal 700 1.8rem/1 palatino, "Palatino Linotype", serif;
+      letter-spacing: .035rem;
+    }
+    p {
+      font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+    }
+    pre {
+      font-size: 1.2rem;
+      margin: 0 1rem;
+      padding: 0;
+    }
+    button {
+      font-size: 1rem;
+      margin: 1rem 0 2rem 4rem;
+    }
+  </style>
+</head>
+<body>
+<script>hljs.highlightAll();</script>
+<h1>Домашнее задание: Тема 5. Массивы и их методы, Set</h1>
+<p>1. На вход поступает массив, вывести массив, удалив неуникальные значения.</p>
+<pre>
+  <code class="language-javascript">
+    const array = [1, 2, 3, 3, 2, 1, 9, 8, 5, 5, 6, 4];
+
+    const arrayLaterElems = array.filter((elem, index) =>
+      array.indexOf(elem, index + 1) === -1
+    );
+
+    const arrayEarlierElems = array.filter((elem, index) =>
+      index > 0
+        ? array.lastIndexOf(elem, index - 1) === -1
+        : true
+    );
+
+    // Removing elements of the original array (changing array in-place)
+    let position;
+    array.forEach((elem, index) => {
+      position = array.indexOf(elem, index + 1);
+      if (position > 0) {
+        array.splice(position, 1);
+      }
+    });
+
+    console.log(`An array of earlier unique elems:    ${JSON.stringify(arrayEarlierElems)}`);
+    console.log(`An array of later unique elems:      ${JSON.stringify(arrayLaterElems)}`);
+    console.log(`The original array changed in-place: ${JSON.stringify(array)}`, '\n\n');
+  </code>
+</pre>
+
+<p>2. На вход поступает массив, реверсировать значения (подобно методу reverse) метод reverse не использовать.</p>
+<pre>
+  <code class="language-javascript">
+    const array = [1, 2, 3, 3, 2, 1, 9, 8, 5, 5, 6, 4];
+
+    const reversedArray = array.map((elem, index) =>
+      array[array.length - index - 1]);
+
+    // Changing in-place
+    array.forEach((elem, index) => {
+      if (index * 2 < array.length - 1) {
+        array[index] = array[array.length - index - 1];
+        array[array.length - index - 1] = elem;
+      }
+    });
+
+    console.log(`The initial array:                   ${JSON.stringify(array.slice().reverse())}`);
+    console.log(`A new reversed array:                ${JSON.stringify(reversedArray)}`);
+    console.log(`The original array changed in-place: ${JSON.stringify(array)}`, '\n\n');
+  </code>
+</pre>
+
+<p>3. На вход поступает массив, содержащий массивы, в которых хранится два элемента. Преобразовать массив в объект,
+  где ключами являются нулевой индекс вложенныхых массивов, а значениями являются элементы с индексом один.</p>
+<pre>
+  <code class="language-javascript">
+    const array = [
+      ['key1', 'val1'],
+      ['key2', 'val2'],
+      ['key3', 'val3'],
+      ['key4', 'val4'],
+      ['key5', 'val5'],
+    ];
+
+    const obj = Object.fromEntries(array);
+
+    const obj1 = array.reduce((obj, elem) => {
+      obj[elem[0]] = elem[1];
+      return obj;
+    }, {});
+
+    const obj2 = {};
+    for (const elem of array) {
+      obj2[elem[0]] = elem[1];
+    }
+
+    console.log('The object from Entries:', obj);
+    console.log('The object from reduce: ', obj1);
+    console.log('The object using for-of:', obj2, '\n\n');
+  </code>
+</pre>
+
+<p>4. На вход поступает объект, вывести сумму числовых свойств объекта.</p>
+<pre>
+  <code class="language-javascript">
+    const obj = {
+      key1: 5,
+      key2: 'value',
+      key3: 100,
+      key4: 'string',
+      key5: {},
+      key6: new Number(1000),
+    };
+
+    const sum = Object.values(obj).reduce(
+      (sum, value) => sum + (
+        Object.prototype.toString.call(value) === '[object Number]' // Same as typeof value === 'number',
+          // but also works if constructor new Number() is used, which returns Object
+          // (taken from http://underscorejs.org/docs/underscore-esm.html#section-17)
+          ? value
+          : 0
+      ),
+      0
+    );
+
+    console.log('Sum of numeric properties: ', sum, '\n\n');
+  </code>
+</pre>
+
+<p>5. На вход поступает массив с числами, вывести среднее арифметическое элементов массива.</p>
+<pre>
+  <code class="language-javascript">
+    const array = [1, 3, 5, 1, 3, 5, 1, 3, 5, 1, 3, 5, 1, 3, 5];
+    // Mess the array.length
+    delete array[1]; // delete item = 3
+    array[1000] = 3; // add item = 3
+    console.log(array);
+
+    const accumulators = array.reduce((accums, elem) => {
+      accums.sum += elem;
+      accums.count++;
+      return accums;
+    }, {
+      sum: 0,
+      count: 0
+    });
+    const average = accumulators.sum / accumulators.count;
+
+    console.log(`The average of the array is ${average}\n\n`);
+  </code>
+</pre>
+
+<p>6. Создать функцию-конструктор для объекта "калькулятор", объект должен иметь поле, хранящее текущее значение и
+  методы сложения, вычитания, умножения и деления, принимающие число и манипулирующий свойством значения в
+  соответствии с назначением метода, а так же функцию, сбрасывающую значение в ноль.</p>
+<pre>
+  <code class="language-javascript">
+    function Calculator() {
+      let currentValue = 0;
+
+      this.add = function(number) {
+        return (currentValue += number);
+      }
+      this.subtract = function(number) {
+        return (currentValue -= number);
+      }
+      this.multiply = function(number) {
+        return (currentValue *= number);
+      }
+      this.divide = function(number) {
+        return (currentValue /= number);
+      }
+      this.clear = function() {
+        return (currentValue = 0);
+      }
+    }
+
+    const calculator = new Calculator();
+    console.log('0 + 5 =', calculator.add(5));
+    console.log('* 3 = ', calculator.multiply(3));
+    console.log('- 6 = ', calculator.subtract(6));
+    console.log('/ 3 = ', calculator.divide(3));
+    console.log('+ 2 = ', calculator.add(2));
+    console.log('clear; = ', calculator.clear(), '\n\n');
+  </code>
+</pre>
+
+<p>7. Функция принимает смешанный массив (содержащий значения чисел, строк и объектов), вернуть объект с полями
+  numbers, strings и objects, содержащими массив со значениями, соответствующими названию поля.</p>
+<pre>
+  <code class="language-javascript">
+    const arr = [1, 'word', {key: 'value'}, 2, 'abc', 104, 22, 'sdf', {key1: 'string'}];
+
+    const obj = (function(array) {
+      return array.reduce(
+        (object, value) => {
+          switch(typeof value) {
+            case 'number':
+              object.numbers.push(value);
+              break;
+            case 'string':
+              object.strings.push(value);
+              break;
+            case 'object':
+              object.objects.push(value);
+              break;
+            default:
+              console.log('Unsupported type of value in array')
+          }
+          return object;
+        },
+        {
+          numbers: [],
+          strings: [],
+          objects: [],
+        }
+      );
+    })(arr);
+
+    console.log('The initial mixed array:                                                 ', JSON.stringify(arr));
+    console.log('An object with numbers, strings and objects separated to the own fields: ', JSON.stringify(obj), '\n\n');
+  </code>
+</pre>
+
+<p>8. Функция принимает массив чисел и два числовых значения, вернуть новый массив, содержащий элементы первого
+  массива, значение которых попадает под диапазон переданных в функцию чисел (второе переданное число может быть
+  больше первого)</p>
+<pre>
+  <code class="language-javascript">
+    const arr = [1, 2, 3, 4, 5, 6, 7, 3, 29, 33, 10, 15, 20];
+    const border1 = 18;
+    const border2 = 5;
+
+    function filterRange(array, border1, border2) {
+      const highBorder = Math.max(border1, border2);
+      const lowBorder = Math.min(border1, border2);
+
+      return array.filter(elem => lowBorder < elem && elem <= highBorder);
+    }
+
+    console.log('The initial array:     ', JSON.stringify(arr));
+    console.log(`Borders of the range:   ${border1}, ${border2}`);
+    console.log('The filtered array:    ', JSON.stringify(filterRange(arr, border1, border2)), '\n\n');
+  </code>
+</pre>
+
+<p>9. Функция принимает две строки. Вывести true, если строки являются анаграммами, в противном случае false</p>
+<pre>
+  <code class="language-javascript">
+    function checkAnagrams(firstWord, secondWord) {
+      return Array.from(arguments)
+        .map(word => word
+          .toLowerCase()
+          .split('')
+          .sort()
+          .join('')
+        )
+        .reduce((first, second) => first
+          ? first === second
+          : first
+        );
+    }
+
+    let anagrams = ['ложка', 'вилка'];
+    console.log(`Checking words ${anagrams} .... >>> ${checkAnagrams(...anagrams)}`)
+    anagrams = ['банка', 'кабан'];
+    console.log(`Checking words ${anagrams} .... >>> ${checkAnagrams(...anagrams)}\n\n`)
+  </code>
+</pre>
+
+<p>10. Создать объект, выводящий в консоль все ключи и значения объекта в формате "ключ: значение" через запятую
+  (считать, что значением ключа объекта не может быть объектом или массивом, содержащими объекты) сама функция в
+  консоль выводиться не должна.</p>
+<pre>
+  <code class="language-javascript">
+    const obj = {
+      date: '2001/05/03',
+      time: '12:00:00',
+      age: 29,
+      name: 'George',
+      list: [22,33,44],
+    };
+
+    Object.defineProperty(obj, 'logKeysValues', {
+      value: function () {
+        const propArray = Object.entries(this)
+          .filter(item => !Array.isArray(item[1]))
+          .map(([key, value]) => `${key}: ${value}`);
+        console.log(propArray.join(', '),'\n\n');
+      },
+      enumerable: false
+    });
+
+    obj.logKeysValues();
+  </code>
+</pre>
+
+<p>11. Создать функцию-конструктор для объекта, содержащего методы serProp (установить значение свойства), метод
+  принимает ключь (строка), значение (произвольное) и объект со свойствами writable, configurable, enumerable
+  (разрешение перезаписи свойства, разрешение перечисления свойства и разрешение удаления свойства). Если какое-то из
+  свойств в объекте отсутствует, действие должно быть разрешено</p>
+<pre>
+  <code class="language-javascript">
+    function ManageableObj() {
+      this.setProp = function (key, value, descriptor) {
+        const { writable = true, enumerable = true, configurable = true } = descriptor;
+        Object.defineProperty(this, key, {
+          value,
+          writable,
+          enumerable,
+          configurable,
+        });
+      }
+    }
+
+    const obj = new ManageableObj();
+    obj.setProp('user', 'administrator', {writable: false, configurable: false});
+    obj.setProp('phone', '550-333-2334', {configurable: false});
+    obj.setProp('age', 30, {writable: false, configurable: false});
+
+    console.log('The object:                       ', JSON.stringify(obj),
+              '\nThe own properties of the object: ', JSON.stringify(Object
+        .getOwnPropertyDescriptors(obj), null, '\t\t\r')
+    );
+  </code>
+</pre>
+</body>
+</html>
