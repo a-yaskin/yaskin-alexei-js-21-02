@@ -35,7 +35,7 @@
 </head>
 <body>
 <script>hljs.highlightAll();</script>
-<h1>Домашнее задание. Тема 6. Функции, контекст, область видимости, замыкания, рекурсия. Обработка ошибок, отладка</h1>
+<h1>Домашнее задание по теме 6.</h1>
 
 <p>1. Реализовать функцию, принимающую число (индекс в последовательности Фибоначчи),
   функция должна вернуть значение числа. Использовать рекурсию.</p>
@@ -138,6 +138,18 @@
 
     console.log('The object printed out:\n', JSON.stringify(arrStructToObj(struct), null, '\t\r'));
     console.log('The object collapsed: ', arrStructToObj(struct));
+
+    struct2 = [
+      ['name', 'Anna'],
+      ['age', 22],
+      ['pets', [
+        ['dog', 'Faust'],
+        ['cat', 'Balthazar']
+      ]]
+    ];
+
+    console.log('The object printed out:\n', JSON.stringify(arrStructToObj(struct2), null, '\t\r'));
+    console.log('The object collapsed: ', arrStructToObj(struct2));
   </code>
 </pre>
 </body>
