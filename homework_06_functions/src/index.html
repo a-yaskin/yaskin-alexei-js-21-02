@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 06. Functions. Recursions.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/base16/colors.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+  <script src="index.js" defer></script>
+  <style>
+    h1 {
+      font: normal 700 1.8rem/1 palatino, "Palatino Linotype", serif;
+      letter-spacing: .035rem;
+    }
+    p {
+      font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+      font-size: 1.05rem;
+    }
+    pre {
+      font-size: 1.2rem;
+      margin: 0 1rem;
+      padding: 0;
+    }
+    button {
+      font-size: 1rem;
+      margin: 1rem 0 2rem 4rem;
+    }
+  </style>
+</head>
+<body>
+<script>hljs.highlightAll();</script>
+<h1>Домашнее задание по теме 6.</h1>
+
+<p>1. Реализовать функцию, принимающую число (индекс в последовательности Фибоначчи),
+  функция должна вернуть значение числа. Использовать рекурсию.</p>
+<pre>
+  <code class="language-javascript">
+    function fibonacci(n) {
+      if (n > 2) {
+        return fibonacci (n - 2) + fibonacci(n - 1);
+      }
+      return 1;
+    }
+
+    let n = 10;
+    alert(`Fibonacci Sequence starting from ${n}:
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+    `);
+    </code>
+</pre>
+
+<p>2. Модернизировать написанную функцию, добавив кэширование (функция ""запоминает"" входной параметр
+  и вычесленное значение, при следующем вызыве с этим же параметром, функция не вычисляет значение,
+  а возвращает из памяти)</p>
+<pre>
+  <code class="language-javascript">
+    const cache = new Map();
+
+    function fibonacci(n) {
+      if (cache.get(n)) return cache.get(n);
+
+      if (n > 2) {
+        cache.set(n, fibonacci (n - 2) + fibonacci(n - 1));
+        return cache.get(n);
+      }
+      return 1;
+    }
+
+    let n = 100;
+    alert(`Fibonacci Sequence starting from ${n}:
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+      ${n++}: ${fibonacci(n)}
+    `);
+</code>
+</pre>
+
+<p>3. Разработать рекурсивную функцию, принимающую массив, содержащий массивы из двух элементов,
+  в каждом из которых первый элемент является строкой, а второй строкой, числом, логическим значением,
+  объектом, или таким же массивом.
+  Функция должна преобразовать массив в объект.</p>
+<pre>
+  <code class="language-javascript">
+    const struct = [
+      ['key10', 'string'],
+      ['key20', 1000],
+      ['key30', true],
+      ['key40', {
+        a: 'val',
+        b: 500,
+      }],
+      ['key50', [
+        ['key11', 'string'],
+        ['key21', 1000],
+        ['key31', true],
+        ['key41', {
+          c: 'val',
+          d: 500,
+        }],
+        ['key51', [
+          ['key12', 'string'],
+          ['key22', 1000],
+          ['key32', true],
+          ['key42', {
+            e: 'val',
+            f: 500,
+          }]
+        ]]
+      ]]
+    ];
+
+    function arrStructToObj(arrStruct) {
+      const map = new Map(arrStruct);
+      const obj = {};
+      map.forEach((value, key) => {
+        obj[key] = Array.isArray(value)
+          ? arrStructToObj(value)
+          : value;
+      });
+      return obj;
+    }
+
+    console.log('The object printed out:\n', JSON.stringify(arrStructToObj(struct), null, '\t\r'));
+    console.log('The object collapsed: ', arrStructToObj(struct));
+
+    struct2 = [
+      ['name', 'Anna'],
+      ['age', 22],
+      ['pets', [
+        ['dog', 'Faust'],
+        ['cat', 'Balthazar']
+      ]]
+    ];
+
+    console.log('The object printed out:\n', JSON.stringify(arrStructToObj(struct2), null, '\t\r'));
+    console.log('The object collapsed: ', arrStructToObj(struct2));
+  </code>
+</pre>
+</body>
+</html>
