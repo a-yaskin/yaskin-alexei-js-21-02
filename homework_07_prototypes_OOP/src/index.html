@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 07. Prototypes. OOP.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/styles/base16/colors.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.3.1/build/highlight.min.js"></script>
+  <script src="index.js" defer></script>
+  <style>
+    h1 {
+      font: normal 700 1.8rem/1 palatino, "Palatino Linotype", serif;
+      letter-spacing: .035rem;
+    }
+    p {
+      font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+      font-size: 1rem;
+    }
+    pre {
+      font-size: 1.05rem;
+      margin: 0 1rem;
+      padding: 0;
+    }
+    button {
+      font-size: 1rem;
+      margin: 1rem 0 2rem 4rem;
+    }
+  </style>
+</head>
+<body>
+<script>hljs.highlightAll();</script>
+<h1>Домашнее задание по теме 7.</h1>
+
+<p>1. Реализовать объект animal, с полем клички, методом eat, выводящим сообщение "/*кличка*/ ест" и методом say,
+  выводящим фразу, "неизвестное животное молчит", путём прототипного наследования создать объекты кота,
+  собаки и попугая. Переопределить в них метод say, в зависимости от типа животного.
+  Для кота добавить новый метод hunt, выводящий сообщение "/*кличка*/ охотится".
+  Все перечисленные методы и свойства должны быть защищены от удаления и перезаписи.
+  Методы должны быть неперечисляемыми. Разработать метод rename, для смены клички животного.
+  Новая кличка должна содержать только кирилические символы, пробелы или символ "-".</p>
+<pre>
+  <code class="language-javascript">
+    const animal = {
+      nickname: 'Безымянный',
+      eat() {
+        console.log(`${this.nickname} ест`);
+      },
+      say() {
+        console.log('неизвестное животное молчит');
+      },
+      rename(nickname) {
+        const regex = /[а-я -]/gi;
+        if (regex.test(nickname)) {
+          this.nickname = nickname;
+        } else {
+          alert('Недопустимые символы в кличке');
+        }
+      },
+    };
+
+    const cat = {
+      __proto__: animal,
+      nickname: 'Том',
+      say() {
+        console.log(`Кот ${this.nickname} мяукает`);
+      },
+      hunt() {
+        console.log(`Кот ${this.nickname} охотится`);
+      }
+    };
+
+    const dog = {
+      __proto__: animal,
+      nickname: 'Белка',
+      say() {
+        console.log(`Собака ${this.nickname} лает`);
+      }
+    };
+
+    const parrot = {
+      __proto__: animal,
+      nickname: 'Рио',
+      say() {
+        console.log(`Попугай ${this.nickname} говорит`);
+      }
+    };
+
+    animal.__proto__.seal = function () {
+      Object.keys(this).forEach(key => {
+        // console.log(`Sealing ${key} for ${this.nickname}...`);
+        const writable = key === 'nickname';
+        const enumerable = writable;
+        Object.defineProperty(this, key, {
+          writable,
+          enumerable,
+          // configurable: false // not necessary since doing .seal() below
+        });
+      });
+      Object.seal(this);
+    };
+
+    console.clear();
+
+    animal.seal();
+    cat.seal();
+    dog.seal();
+    parrot.seal();
+
+    cat.hunt();
+
+    dog.eat();
+    console.log(`Changing nickname for dog ${dog.nickname} to Стрелка... and now:`);
+    dog.rename('Стрелка');
+    dog.say();
+
+    animal.__proto__.logDescriptors = function () {
+      console.log(`Own Property Descriptors of ${this.nickname}\n`,
+        JSON.stringify(Object.getOwnPropertyDescriptors(this), null, '\t\r')
+      );
+    };
+    animal.logDescriptors();
+    cat.logDescriptors();
+    dog.logDescriptors();
+    parrot.logDescriptors();
+  </code>
+</pre>
+
+<p>2. Выполнить то же самое использую функции конструкторы.</p>
+<pre>
+  <code class="language-javascript">
+    function Animal(nickname) {
+      this.nickname = nickname;
+
+      this.eat = function () {
+        console.log(`${this.nickname} ест`);
+      };
+
+      this.say = function () {
+        console.log('неизвестное животное молчит');
+      };
+
+      this.rename = function(nickname) {
+        const regex = /[а-я -]/gi;
+        if (regex.test(nickname)) {
+          this.nickname = nickname;
+        } else {
+          alert('Недопустимые символы в кличке');
+        }
+      };
+    }
+
+    function Cat(nickname) {
+      Animal.call(this, nickname);
+
+      this.say = function () {
+        console.log(`Кот ${this.nickname} мяукает`);
+      };
+
+      this.hunt = function () {
+        console.log(`Кот ${this.nickname} охотится`);
+      };
+    }
+
+    function Dog(nickname) {
+      Animal.call(this, nickname);
+
+      this.say = function () {
+        console.log(`Собака ${this.nickname} лает`);
+      };
+    }
+
+    function Parrot(nickname) {
+      Animal.call(this, nickname);
+
+      this.say = function () {
+        console.log(`Попугай ${this.nickname} говорит`);
+      };
+    }
+
+    Animal.prototype.seal = function () {
+      Object.keys(this).forEach(key => {
+        // console.log(`Sealing ${key} for ${this.nickname}...`);
+        const writable = key === 'nickname';
+        const enumerable = writable;
+        Object.defineProperty(this, key, {
+          writable,
+          enumerable,
+          // configurable: false // not necessary since doing .seal() below
+        });
+      });
+      Object.seal(this);
+    };
+
+    Animal.prototype.logDescriptors = function () {
+      console.log(`Own Property Descriptors of ${this.nickname}\n`,
+        JSON.stringify(Object.getOwnPropertyDescriptors(this), null, '\t\r')
+      );
+    };
+
+    (function () {
+      Array.from(arguments).forEach(fn => {
+        fn.prototype = Object.create(Animal.prototype); // or { ...Animal.prototype } (simply Animal.prototype works too)
+      // Object.defineProperty(fn.prototype, 'constructor', { // Not needed in this case but nice to have
+      //   value: fn,
+      //   enumerable: false,
+      //   writable: true
+      // });
+      });
+    })(Cat, Dog, Parrot);
+
+    const animal = new Animal('Безымянный');
+    const cat = new Cat('Том');
+    const dog = new Dog('Белка');
+    const parrot = new Parrot('Рио');
+
+    console.clear();
+
+    animal.seal();
+    cat.seal();
+    dog.seal();
+    parrot.seal();
+
+    cat.hunt();
+
+    dog.eat();
+    console.log(`Changing nickname for dog ${dog.nickname} to Стрелка... and now:`);
+    dog.rename('Стрелка');
+    dog.say();
+
+    animal.logDescriptors();
+    cat.logDescriptors();
+    dog.logDescriptors();
+    parrot.logDescriptors();
+  </code>
+</pre>
+
+<p>3. Выполнить то же самое, используя классы.</p>
+<pre>
+  <code class="language-javascript">
+    class Animal {
+      static seal(animal) {
+        sealFn(animal);
+      }
+
+      static logDescriptors(animal) {
+        logDescriptorsFn(animal);
+      }
+
+      constructor(nickname) {
+        this.nickname = nickname;
+      }
+
+      eat() {
+        console.log(`${this.nickname} ест`);
+      };
+
+      say() {
+        console.log('неизвестное животное молчит');
+      };
+
+      rename(nickname) {
+        const regex = /[а-я -]/gi;
+        if (regex.test(nickname)) {
+          this.nickname = nickname;
+        } else {
+          alert('Недопустимые символы в кличке');
+        }
+      };
+    }
+
+    class Cat extends Animal {
+      say() {
+        console.log(`Кот ${this.nickname} мяукает`);
+      };
+
+      hunt() {
+        console.log(`Кот ${this.nickname} охотится`);
+      };
+    }
+
+    class Dog extends Animal {
+      say() {
+          console.log(`Собака ${this.nickname} лает`);
+      };
+    }
+
+    class Parrot extends Animal {
+      say() {
+        console.log(`Попугай ${this.nickname} говорит`);
+      };
+    }
+
+    function sealFn(obj) {
+      Object.keys(Object.getOwnPropertyDescriptors(
+        Object.getPrototypeOf(obj)
+      )).forEach(key => {
+        // console.log(`Sealing ${key} for ${this.nickname}...`);
+        Object.defineProperty(Object.getPrototypeOf(obj), key, {
+          writable: false,
+          // enumerable: false, // not necessary since all methods non-enumerable when instantiated from a class
+          // configurable: false // not necessary since doing .seal() below
+        });
+      });
+      Object.seal(obj);
+      Object.seal(Object.getPrototypeOf(obj));
+    }
+
+    function logDescriptorsFn(obj) {
+      console.log(`Own Property Descriptors of ${obj.nickname}\n`,
+        JSON.stringify(Object.getOwnPropertyDescriptors(obj), null, '\t\r')
+      );
+      console.log(`...and Methods (from Prototype) of ${obj.nickname}\n`,
+        JSON.stringify(
+          Object.getOwnPropertyDescriptors(
+            Object.getPrototypeOf(obj)
+          ),
+          (key, value) => key !== 'constructor'
+            ? value
+            : undefined,
+          '\t\r'
+        )
+      );
+    }
+
+    const animal = new Animal('Безымянный');
+    const cat = new Cat('Том');
+    const dog = new Dog('Белка');
+    const parrot = new Parrot('Рио');
+
+    console.clear();
+
+    Animal.seal(animal);
+    Animal.seal(cat);
+    Animal.seal(dog);
+    Animal.seal(parrot);
+
+    cat.hunt();
+
+    dog.eat();
+    console.log(`Changing nickname for dog ${dog.nickname} to Стрелка... and now:`);
+    dog.rename('Стрелка');
+    dog.say();
+
+    Animal.logDescriptors(animal);
+    Animal.logDescriptors(cat);
+    Animal.logDescriptors(dog);
+    Animal.logDescriptors(parrot);
+  </code>
+</pre>
+</body>
+</html>
