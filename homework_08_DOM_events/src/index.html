@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 08. DOM Manipulations. Events.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+  <script src="index.js" defer></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Домашнее задание по теме 8. Телефонная книга</h1>
+</header>
+<main>
+  <table class="list">
+    <caption><h2>Телефонная книга: список контактов</h2></caption>
+    <thead>
+    <tr>
+      <th>Фамилия Имя Отчество</th>
+      <th>Телефон</th>
+      <th>Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr style="display: none;">
+      <td>Фамилия Имя Отчество</td>
+      <td>Телефон</td>
+      <td><button type="button" class="delete">Удалить</button></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="3">
+        <form>
+          <fieldset>
+            <legend>Новая запись:</legend>
+            <label>Полное имя
+              <input type="text" id="nameInput">
+            </label>
+            <label>&nbsp;Телефон
+              <input type="text" id="phoneInput">
+            </label>
+            <button type="submit" disabled>Добавить</button>
+          </fieldset>
+          <fieldset>
+            <legend>Сменить тему:</legend>
+            <button type="button" class="theme1" data-theme="theme1">Тема 1</button>
+            <button type="button" class="theme2" data-theme="theme2">Тема 2</button>
+            <button type="button" class="theme3" data-theme="theme3">Тема 3</button>
+          </fieldset>
+        </form>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</main>
+</body>
+</html>
