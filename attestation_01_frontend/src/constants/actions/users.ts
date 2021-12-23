@@ -1,0 +1,7 @@
+export const USERS_GET = 'USERS/GET';
+export const USERS_LIST_GET_SUCCESS = 'USERS/SUCCESS_GET';
+export const USERS_LOAD = 'USERS/LOAD';
+export const USERS_ERROR = 'USERS/ERROR';
+export const USERS_CREATE = 'USERS/CREATE';
+export const USERS_UPDATE = 'USERS/UPDATE';
+export const AVATAR_UPLOAD = 'USERS/AVATAR_UPLOAD';
